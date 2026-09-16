@@ -411,6 +411,7 @@ body {
   margin: 16px 0;
 }
 .app-container [data-slot="card"] {
+  margin-block-start: 8px;
   border: 0;
   box-shadow: none;
   --card-spacing: 12px;
