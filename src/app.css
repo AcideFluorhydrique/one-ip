@@ -3863,6 +3863,9 @@ body {
     padding-right: 12px;
   }
   .ip-scenario-progress .ping-dots {
+    display: flex;
+  }
+  .ip-scenario-progress .ip-scenario-count {
     display: none;
   }
   .ip-scenario-progress .ip-scenario-partial {
@@ -3875,6 +3878,9 @@ body {
   }
   .ip-scenario-table .ip-scenario-stars {
     gap: 1px;
+  }
+  .ip-scenario-table .ip-scenario-stars > span:last-child {
+    display: none;
   }
   .ip-scenario-table th:nth-child(2) {
     width: 23%;
