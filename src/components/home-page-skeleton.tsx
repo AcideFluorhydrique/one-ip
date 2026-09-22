@@ -68,9 +68,12 @@ function SectionSkeleton({ rows = 3 }: { rows?: number }) {
 export function HomePageSkeleton() {
   return (
     <div className="home-page" aria-busy="true">
-      <div className="mb-3 flex items-center justify-between gap-3">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <Skeleton className="h-5 w-24" />
-        <Skeleton className="h-7 w-20" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-7 w-36 sm:w-44" />
+          <Skeleton className="h-7 w-20" />
+        </div>
       </div>
       <div className="home-overview home-ip-overview">
         <OverviewCard />
