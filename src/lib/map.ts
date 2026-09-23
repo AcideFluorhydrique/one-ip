@@ -18,6 +18,9 @@ const OSM_ATTRIBUTION =
 const TIANDITU_ATTRIBUTION =
   '&copy; <a href="https://www.tianditu.gov.cn/">天地图</a>';
 const TIANDITU_SUBDOMAINS = ["t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7"];
+// The site sends no referrer by default, but OSM blocks tiles without one and
+// Tianditu checks it against the token's domain whitelist. Send only the origin.
+const TILE_REFERRER_POLICY = "strict-origin";
 
 let mapConfigPromise: Promise<MapConfig> | undefined;
 
@@ -42,6 +45,7 @@ export function mapTileLayers(config: MapConfig): MapTileLayerSpec[] {
     const options: TileLayerOptions = {
       maxZoom: 19,
       subdomains: TIANDITU_SUBDOMAINS,
+      referrerPolicy: TILE_REFERRER_POLICY,
     };
     const url = (type: "vec_w" | "cva_w") =>
       `https://{s}.tianditu.gov.cn/DataServer?T=${type}&x={x}&y={y}&l={z}&tk=${token}`;
@@ -56,7 +60,11 @@ export function mapTileLayers(config: MapConfig): MapTileLayerSpec[] {
   return [
     {
       url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-      options: { maxZoom: 19, attribution: OSM_ATTRIBUTION },
+      options: {
+        maxZoom: 19,
+        attribution: OSM_ATTRIBUTION,
+        referrerPolicy: TILE_REFERRER_POLICY,
+      },
     },
   ];
 }

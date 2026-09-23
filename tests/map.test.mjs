@@ -29,6 +29,16 @@ test("Tianditu uses the Web Mercator base and annotation layers", () => {
   assert.match(layers[0].options.attribution, /天地图/);
 });
 
+test("tile requests send the origin despite the site-wide no-referrer policy", () => {
+  const layers = [
+    ...mapTileLayers({ provider: "osm" }),
+    ...mapTileLayers({ provider: "tianditu", token: "key" }),
+  ];
+  for (const layer of layers) {
+    assert.equal(layer.options.referrerPolicy, "strict-origin");
+  }
+});
+
 test("a Tianditu tile failure switches to OpenStreetMap", () => {
   const created = [];
   const tileLayer = (url, options) => {
